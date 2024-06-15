@@ -14,6 +14,11 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
+    public Product getProductById(int id){
+        return repository.findById(id)
+                .orElseThrow(()->new RuntimeException("product not present with id: " + id));
+    }
+
     public List<Product> getProducts(){
         return repository.findAll();
     }

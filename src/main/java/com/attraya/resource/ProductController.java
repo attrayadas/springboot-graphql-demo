@@ -19,6 +19,11 @@ public class ProductController {
     private ProductService productService;
 
     @QueryMapping
+    public Product getProductById(@Argument int productId){
+        return productService.getProductById(productId);
+    }
+
+    @QueryMapping
     public List<Product> getProducts(){
         return productService.getProducts();
     }

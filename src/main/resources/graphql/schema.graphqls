@@ -8,7 +8,8 @@ type Product{
 
 type Query{
     getProducts: [Product],
-    getProductsByCategory(category:String): [Product]
+    getProductsByCategory(category:String): [Product],
+    getProductById(productId: Int): Product
 }
 
 type Mutation{
