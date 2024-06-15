@@ -3,27 +3,27 @@ package com.attraya.resource;
 import com.attraya.entity.Product;
 import com.attraya.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/products")
+@Controller
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
-    @GetMapping
+    @QueryMapping
     public List<Product> getProducts(){
         return productService.getProducts();
     }
 
-    @GetMapping("/{category}")
-    public List<Product> getProductsByCategory(@PathVariable String category){
+    @QueryMapping
+    public List<Product> getProductsByCategory(@Argument String category){
         return productService.getProductsByCategory(category);
     }
 }
