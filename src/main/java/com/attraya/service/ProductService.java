@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -20,4 +21,21 @@ public class ProductService {
     public List<Product> getProductsByCategory(String category){
         return repository.findByCategory(category);
     }
+
+    // Sales Team: Update the stock of a product in (IS)
+    public Product updateStock(int id, int stock){
+        Product existingProduct = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("product not found with id: " + id));
+        existingProduct.setStock(stock);
+        return repository.save(existingProduct);
+    }
+
+    // Warehouse: Receive new shipment
+    public Product receiveNewShipment(int id, int qty){
+        Product existingProduct = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("product not found with id: " + id));
+        existingProduct.setStock(existingProduct.getStock() + qty);
+        return repository.save(existingProduct);
+    }
+
 }
